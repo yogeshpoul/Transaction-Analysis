@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import { useEffect, useState ,useRef} from 'react'
 import Chart from 'chart.js/auto';
 
@@ -60,14 +60,19 @@ function App() {
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get(`https://backend-5-0vue.onrender.com/bar-chart?month=${selectedMonth}`)
-      .then(response => {
-        // Update state with the data
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    // axios.get(`https://backend-5-0vue.onrender.com/bar-chart?month=${selectedMonth}`)
+    //   .then(response => {
+    //     // Update state with the data
+    //     setData(response.data);
+    //   })
+    fetch(`https://backend-5-0vue.onrender.com/bar-chart?month=${selectedMonth}`)
+  .then(response => response.json())
+  .then(data => {
+    // console.log(data)
+    setData(data)
+  })
+
+
   }, [selectedMonth]);
 
   useEffect(() => {
