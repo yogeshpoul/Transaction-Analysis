@@ -16,7 +16,7 @@ function App() {
     // Debouncing filter updates
     const timer = setTimeout(() => {
       setDebouncedFilter(filter);
-    }, 1000); // Adjust the debounce delay here (in milliseconds)
+    }, 200); // Adjust the debounce delay here (in milliseconds)
 
     return () => {
       clearTimeout(timer);
