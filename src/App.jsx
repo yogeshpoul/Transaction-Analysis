@@ -1,4 +1,3 @@
-
 import { useEffect, useState ,useRef} from 'react'
 import Chart from 'chart.js/auto';
 
@@ -6,7 +5,7 @@ import Chart from 'chart.js/auto';
 function App() {
   const [transactions, setTransactions] = useState([]);
   const [page, setPage] = useState(1)
-  const [selectedMonth, setSelectedMonth] = useState('March');
+  const [selectedMonth, setSelectedMonth] = useState('ALL Months');
   const [statistics, setStatistics] = useState(selectedMonth);
   const [data, setData] = useState([]);
   const chartRef = useRef(null);
@@ -49,12 +48,22 @@ function App() {
 
 
   useEffect(()=>{
-  fetch(`https://backend-5-0vue.onrender.com/statistics?month=${selectedMonth}`)
+    if (selectedMonth=="ALL Months"){
+      fetch(`https://backend-5-0vue.onrender.com/statistics`)
   .then(response => response.json())
   .then(data => {
     // console.log(data)
     setStatistics(data)
   })
+    }else{
+      fetch(`https://backend-5-0vue.onrender.com/statistics?month=${selectedMonth}`)
+  .then(response => response.json())
+  .then(data => {
+    // console.log(data)
+    setStatistics(data)
+  })
+    }
+  
   },[selectedMonth])
 
 
@@ -65,12 +74,23 @@ function App() {
     //     // Update state with the data
     //     setData(response.data);
     //   })
-    fetch(`https://backend-5-0vue.onrender.com/bar-chart?month=${selectedMonth}`)
+
+    if (selectedMonth=="ALL Months"){
+      fetch(`https://backend-5-0vue.onrender.com/bar-chart`)
   .then(response => response.json())
   .then(data => {
     // console.log(data)
     setData(data)
   })
+    }else{
+      fetch(`https://backend-5-0vue.onrender.com/bar-chart?month=${selectedMonth}`)
+  .then(response => response.json())
+  .then(data => {
+    // console.log(data)
+    setData(data)
+  })
+    }
+    
 
 
   }, [selectedMonth]);
